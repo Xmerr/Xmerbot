@@ -1,4 +1,4 @@
-var util = require('util');
+const util = require('util');
 
 const greetings = [
     'Oh, hello there %s',

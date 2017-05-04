@@ -1,10 +1,11 @@
 const fs = require('fs');
+const path = require('path');
 const util = require('util');
 
 module.exports = (output, data, user) => {
     output(util.format("Saving this for you %s...", user));
     
-    var dir = "../files/" + user;
+    var dir = "files/" + user;
     if (!fs.existsSync(dir)){
         fs.mkdirSync(dir);
     }
