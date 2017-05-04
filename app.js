@@ -1,15 +1,11 @@
 "use strict";
 
-var Discord = require('discord.io');
+const Wit = require('node-wit').Wit;
+const meta = require('./actions/meta');
+const save = require('./actions/save');
 
-var meta = require('./actions/meta');
-var save = require('./actions/save');
+const client = new Wit({'accessToken': 'ZK5WKHCJGFVEYA6XKJ523BCRXGDM5HNC'});
  
-var bot = new Discord.Client({
-    token: "MzA5NDQyNDc5MDk3MzgwODY0.C-vetw.EDYRzF-Obq5NiliM1N3pt9JMx5I",
-    autorun: true
-});
-
 const actions = {
     SAVE: "!save",
     LOAD: "!load",
@@ -17,34 +13,6 @@ const actions = {
     PING: "!ping"
 };
  
-bot.on('ready', function() {
-    console.log('Logged in as %s - %s\n', bot.username, bot.id);
-});
- 
-bot.on('message', function(user, userID, channelID, message, event) {
-    var data = getData(message);
-    if(!data) {
-        return;
-    }
-    
-    switch(data.action) {
-        case actions.PING: 
-            bot.sendMessage({
-                to: channelID,
-                message: "pong"
-            });
-            break;
-        
-        case actions.SAVE:
-            save.action(bot, data, user, channelID);
-            break;
-            
-        case actions.META:
-            meta.action(bot, data, user, channelID);
-            break;
-    }
-});
-
 function getData(msg) {
     if(msg[0] !== '!') {
         return null;
@@ -70,3 +38,34 @@ function getData(msg) {
     
     return obj;
 }
+
+module.exports = (input, output, user) => {
+    if(!user){
+        user = "master";
+    }
+    
+    client.message(input)
+        .then((data) => {
+            output("Respons: " + JSON.stringify(data));
+        })
+        .catch(console.error);
+    
+    var data = getData(input);
+    if(!data) {
+        return;
+    }
+    
+    switch(data.action) {
+        case actions.PING: 
+            output("pong");
+            break;
+        
+        case actions.SAVE:
+            save.action(output, data, user);
+            break;
+            
+        case actions.META:
+            meta.action(output, data, user);
+            break;
+    }
+};

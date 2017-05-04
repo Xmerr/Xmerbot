@@ -3,7 +3,8 @@ const path = require('path');
 
 function getDirectories (srcpath) {
   return fs.readdirSync(srcpath)
-    .filter(file => fs.statSync(path.join(srcpath, file)).isDirectory());
+      .filter(file => fs.statSync(path.join(srcpath, file))
+              .isDirectory());
 }
 
 // these can be used with !meta -d <cmd>
@@ -14,7 +15,7 @@ const dActions = {
 
 module.exports.dActions = dActions;
 
-module.exports.action = (bot, data, user, channelID) => {
+module.exports.action = (output, data, user) => {
     var message = "Invalid Command(s)";
     
     switch(data.d) {
@@ -58,8 +59,5 @@ module.exports.action = (bot, data, user, channelID) => {
             break;
     }
     
-    bot.sendMessage({
-        to: channelID,
-        message: message
-    });
+    output(message);
 }

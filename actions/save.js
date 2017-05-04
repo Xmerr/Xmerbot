@@ -6,11 +6,8 @@ const dActions = {
 
 module.exports.dActions = dActions;
 
-module.exports.action = (bot, data, user, channelID) => {
-    bot.sendMessage({
-        to: channelID,
-        message: "Saving this for you " + user + "..."
-    });
+module.exports.action = (output, data, user) => {
+    output("Saving this for you " + user + "...");
     
     var dir = "files/" + user;
     if (!fs.existsSync(dir)){
@@ -22,6 +19,6 @@ module.exports.action = (bot, data, user, channelID) => {
             return console.log(err);
         }
     
-        console.log("The file was saved!");
+        output("The file was saved!");
     }); 
 };
