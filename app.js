@@ -22,19 +22,13 @@ const actions = {
         key: "meta",
         method: meta
     },
-    PING: {
-        key: "ping",
-        method: (output) => {
-            output("pong");
-        }
-    },
     GREET: {
         key: "greet",
         method: greet
     }
 };
 
-global.parse = (str) => {
+global.stringReplace = (str) => {
     var args = [].slice.call(arguments, 1),
         i = 0;
 

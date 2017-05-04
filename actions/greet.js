@@ -3,5 +3,5 @@ const greetings = [
 ];
 
 module.exports = (output, data, user) => {
-    output(parse(greetings[0], user));
+    output(stringReplace(greetings[0], user));
 };
