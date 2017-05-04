@@ -1,7 +1,7 @@
 const fs = require('fs');
 const util = require('util');
 
-module.exports.action = (output, data, user) => {
+module.exports = (output, data, user) => {
     output(util.format("Saving this for you %s...", user));
     
     var dir = "../files/" + user;
