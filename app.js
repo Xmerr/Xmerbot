@@ -74,6 +74,9 @@ module.exports = (input, output, user) => {
         .catch(console.error);
     
     var data = getData(input);
+    if(!data) {
+        return;
+    }
     
     switch(data.action) {
         case actions.PING: 
