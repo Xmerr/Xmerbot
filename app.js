@@ -56,13 +56,17 @@ module.exports = (input, output, user) => {
                 output("I don't understand...");
             }
             else {
-                output("Absolutely!");
-                switch(data.entities.intent.value) {
-                        
-                    default:
-                        output("Wait..... What?");
+                var found = false;
+                for(var ac in actions) {
+                    if(data.entities.intent[0].value.toUpperCase() === actions[ac].toUpperCase()){
+                        output("Found something!");
+                        found = true;
                         break;
-                }        
+                    }
+                }
+                if(!found) {
+                    output("Wait..... What?");
+                }
             }
         
             output("Response: " + JSON.stringify(data));
@@ -70,9 +74,6 @@ module.exports = (input, output, user) => {
         .catch(console.error);
     
     var data = getData(input);
-    if(!data) {
-        return;
-    }
     
     switch(data.action) {
         case actions.PING: 
