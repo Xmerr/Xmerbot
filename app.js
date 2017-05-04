@@ -40,13 +40,30 @@ function getData(msg) {
 }
 
 module.exports = (input, output, user) => {
+    if(input.toUpperCase().indexOf("XMERBOT") === -1) {
+        return;
+    }
+    
     if(!user){
         user = "master";
     }
     
+    
     client.message(input)
-        .then((data) => {
-            output("Respons: " + JSON.stringify(data));
+        .then((data) => 
+        {
+            if(data.intent.confidence < 0.7) {
+                output("I don't understand...");
+            }
+            else {
+                switch(data.intent.value){
+                    default:
+                        output("Wait..... What?");
+                        break;
+                }        
+            }
+        
+            output("Response: " + JSON.stringify(data));
         })
         .catch(console.error);
     
