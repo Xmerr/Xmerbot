@@ -34,7 +34,7 @@ module.exports = (input, output, user) => {
     }
     
     if(!user){
-        user = "master";
+        user = "Master";
     }
     
     
