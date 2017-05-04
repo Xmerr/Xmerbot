@@ -1,7 +1,7 @@
 const greetings = [
-    "Oh, hello there %s"
+    `Oh, hello there ${user}`
 ];
 
 module.exports = (output, data, user) => {
-    output(stringReplace(greetings[0], user));
+    output(greetings[0]);
 };

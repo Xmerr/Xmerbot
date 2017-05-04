@@ -28,42 +28,6 @@ const actions = {
     }
 };
 
-global.stringReplace = (str) => {
-    var args = [].slice.call(arguments, 1),
-        i = 0;
-
-    return str.replace(/%s/g, function() {
-        return args[i++];
-    });
-};
-
- 
-function getData(msg) {
-    if(msg[0] !== '!') {
-        return null;
-    }
-    
-    var obj = {};
-    
-    for(var i in actions) {
-        if(msg.toUpperCase().indexOf(actions[i].toUpperCase()) === 0) {
-            obj.action = actions[i];
-            break;
-        }
-    }
-    
-    var params = msg.split(' ');
-    
-    for(var j = 0; j < params.length - 1; j++) {
-        if(params[j].indexOf('-') === 0 && params[j][1] && params[j][1] !== '-' && params[j+1]){
-            obj[params[j][1]] = params[j+1];
-            j++;
-        }
-    }
-    
-    return obj;
-}
-
 module.exports = (input, output, user) => {
     if(input.toUpperCase().indexOf("XMERBOT") === -1) {
         return;
@@ -85,7 +49,7 @@ module.exports = (input, output, user) => {
                 for(var ac in actions) {
                     if(data.entities.intent[0].value.toUpperCase() === actions[ac].key.toUpperCase()){
                         output("Found something!");
-                        actions[ac].method(output, null, user);
+                        actions[ac].method(output, data, user);
                         
                         found = true;
                         break;
@@ -99,23 +63,4 @@ module.exports = (input, output, user) => {
             output("Response: " + JSON.stringify(data));
         })
         .catch(console.error);
-    
-    var data = getData(input);
-    if(!data) {
-        return;
-    }
-    
-    switch(data.action) {
-        case actions.PING: 
-            output("pong");
-            break;
-        
-        case actions.SAVE:
-            save.action(output, data, user);
-            break;
-            
-        case actions.META:
-            meta.action(output, data, user);
-            break;
-    }
 };
