@@ -1,7 +1,7 @@
 const greetings = [
-    `Oh, hello there ${user}`
+    'Oh, hello there %s'
 ];
 
 module.exports = (output, data, user) => {
-    output(greetings[0]);
+    output(util.format(greetings[0], user));
 };
