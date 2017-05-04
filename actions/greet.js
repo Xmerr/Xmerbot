@@ -1,3 +1,5 @@
+var util = require('util');
+
 const greetings = [
     'Oh, hello there %s'
 ];
