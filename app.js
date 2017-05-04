@@ -3,6 +3,7 @@
 const Wit = require('node-wit').Wit;
 const meta = require('./actions/meta');
 const save = require('./actions/save');
+const greet = require('./actions/greet');
 
 const client = new Wit({'accessToken': 'ZK5WKHCJGFVEYA6XKJ523BCRXGDM5HNC'});
  
@@ -26,6 +27,10 @@ const actions = {
         method: (output) => {
             output("pong");
         }
+    },
+    GREET: {
+        key: "greet",
+        method: greet
     }
 };
 
