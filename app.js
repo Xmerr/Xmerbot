@@ -52,11 +52,13 @@ module.exports = (input, output, user) => {
     client.message(input)
         .then((data) => 
         {
-            if(!data.entities || data.entities.intent.confidence < 0.7) {
+            if(!data.entities || data.entities.intent[0].confidence < 0.7) {
                 output("I don't understand...");
             }
             else {
-                switch(data.entities.intent.value){
+                output("Absolutely!");
+                switch(data.entities.intent.value) {
+                        
                     default:
                         output("Wait..... What?");
                         break;
