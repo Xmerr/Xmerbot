@@ -7,10 +7,26 @@ const save = require('./actions/save');
 const client = new Wit({'accessToken': 'ZK5WKHCJGFVEYA6XKJ523BCRXGDM5HNC'});
  
 const actions = {
-    SAVE: "!save",
-    LOAD: "!load",
-    META: "!meta",
-    PING: "!ping"
+    SAVE: {
+        key: "save",
+        method: save
+    },
+    LOAD: {
+        key: "load",
+        method: () => {
+            console.log("Worked");   
+        }
+    },
+    META: {
+        key: "meta",
+        method: meta
+    },
+    PING: {
+        key: "ping",
+        method: (output) => {
+            output("pong");
+        }
+    }
 };
  
 function getData(msg) {
@@ -58,8 +74,10 @@ module.exports = (input, output, user) => {
             else {
                 var found = false;
                 for(var ac in actions) {
-                    if(data.entities.intent[0].value.toUpperCase() === actions[ac].toUpperCase()){
+                    if(data.entities.intent[0].value.toUpperCase() === actions[ac].key.toUpperCase()){
                         output("Found something!");
+                        actions[ac].method(output, null, user);
+                        
                         found = true;
                         break;
                     }
