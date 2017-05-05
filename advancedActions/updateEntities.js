@@ -3,7 +3,7 @@ const tokens = require('../tokens.json');
 
 const http = require('http');
 const options = {
-    host: 'https://api.api.ai',
+    host: 'api.api.ai',
     port: 443,
     path: '/v1/entities?v=20150910',
     method: 'PUT',
