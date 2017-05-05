@@ -6,13 +6,14 @@ const apiai = require('apiai');
 const meta = require('./actions/meta');
 const save = require('./actions/save');
 const greet = require('./actions/greet');
+const updateEntities = require('./advancedActions/updateEntities');
 
 //const client = new Wit({'accessToken': 'ZK5WKHCJGFVEYA6XKJ523BCRXGDM5HNC'});
 const client = apiai("6948700182f145b7940afc91fede274b");
  
 const actions = {
     SAVE: {
-        key: "save",
+        key: "saveFile",
         method: save
     },
     LOAD: {
@@ -36,6 +37,8 @@ module.exports = (input, output, user) => {
     if(input.toUpperCase().indexOf("XMERBOT") === -1) {
         return;
     }
+    
+    updateEntities();
     
     if(!user){
         user = "Master";
