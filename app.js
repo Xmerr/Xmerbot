@@ -2,6 +2,7 @@
 
 const Wit = require('node-wit').Wit;
 const apiai = require('apiai');
+const tokens = require('./tokens.json');
 
 const meta = require('./actions/meta');
 const save = require('./actions/save');
@@ -9,7 +10,7 @@ const greet = require('./actions/greet');
 const updateEntities = require('./advancedActions/updateEntities');
 
 //const client = new Wit({'accessToken': 'ZK5WKHCJGFVEYA6XKJ523BCRXGDM5HNC'});
-const client = apiai("6948700182f145b7940afc91fede274b");
+const client = apiai(tokens.apiai);
  
 const actions = {
     SAVE: {

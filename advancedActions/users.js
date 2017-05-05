@@ -19,17 +19,11 @@ module.exports = () => {
             value: directories[i],
             synonyms: [
                 directories[i],
-                directories[i] + "'s"
+                directories[i] + "'s",
+                directories[i] + 's'
             ]
         });
     }
     
-    fs.writeFile(path.resolve(__dirnamem, './users.json'), JSON.stringify(users), (err) => {
-        if(err) {
-            console.log(err);
-        }
-        else{
-            console.log('worked???');
-        }
-    });
+    return users;
 };
