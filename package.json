@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Xmerr/DiscordBot#readme",
   "dependencies": {
+    "apiai": "^4.0.2",
     "discord.io": "^2.5.1",
     "googleapis": "^19.0.0",
     "node-wit": "^4.2.0"

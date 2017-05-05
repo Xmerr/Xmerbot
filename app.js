@@ -1,11 +1,14 @@
 "use strict";
 
 const Wit = require('node-wit').Wit;
+const apiai = require('apiai');
+
 const meta = require('./actions/meta');
 const save = require('./actions/save');
 const greet = require('./actions/greet');
 
-const client = new Wit({'accessToken': 'ZK5WKHCJGFVEYA6XKJ523BCRXGDM5HNC'});
+//const client = new Wit({'accessToken': 'ZK5WKHCJGFVEYA6XKJ523BCRXGDM5HNC'});
+const client = apiai("6948700182f145b7940afc91fede274b");
  
 const actions = {
     SAVE: {
@@ -27,6 +30,7 @@ const actions = {
         method: greet
     }
 };
+    
 
 module.exports = (input, output, user) => {
     if(input.toUpperCase().indexOf("XMERBOT") === -1) {
@@ -37,7 +41,21 @@ module.exports = (input, output, user) => {
         user = "Master";
     }
     
+    var request = client.textRequest(input, {
+       sessionId: user 
+    });
     
+    request.on('response', (data) => {
+        output(data);
+    });
+    
+    request.on('error', (err) => {
+        console.log(err);
+    });
+    
+    request.end();
+    
+    /*
     client.message(input)
         .then((data) => 
         {
@@ -63,4 +81,6 @@ module.exports = (input, output, user) => {
             output("Response: " + JSON.stringify(data));
         })
         .catch(console.error);
+        
+        */
 };
