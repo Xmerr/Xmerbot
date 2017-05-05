@@ -19,9 +19,12 @@ module.exports = () => {
     entities.push(users());
     
     console.log('sending users...');
-    console.log('entities');
+    console.log(entities);
     
-    var req = https.request(options);
+    var req = https.request(options, (res, err) => {
+        console.log(res);
+        console.log(err);
+    });
     req.write(JSON.stringify(entities));
     req.end();
 };
