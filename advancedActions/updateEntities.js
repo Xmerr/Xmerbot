@@ -1,7 +1,7 @@
 const users = require('./users.js');
 const tokens = require('../tokens.json');
 
-const http = require('https');
+const https = require('https');
 var options = {
     hostname: 'api.api.ai',
     port: 443,
