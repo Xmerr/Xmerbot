@@ -1,6 +1,5 @@
 const path = require('path');
 const fs = require('fs');
-const jsonfile = require('jsonfile');
 
 function getDirectories (srcpath) {
   return fs.readdirSync(srcpath)
@@ -25,7 +24,7 @@ module.exports = () => {
         });
     }
     
-    jsonfile.writeFile('./users.json', users, (err) => {
+    fs.writeFile(path.resolve(__dirnamem, './users.json'), JSON.stringify(users), (err) => {
         if(err) {
             console.log(err);
         }
