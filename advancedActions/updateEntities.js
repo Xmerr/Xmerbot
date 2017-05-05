@@ -1,7 +1,7 @@
 const users = require('./users.js');
 const tokens = require('../tokens.json');
 
-const https = require('https');
+const http = require('http');
 const options = {
     hostname: 'https://api.api.ai',
     port: 443,
@@ -21,7 +21,7 @@ module.exports = () => {
     console.log('sending users...');
     console.log(entities);
     
-    var req = https.request(options, res => {
+    var req = http.request(options, res => {
         res.on('data', (data) => {
             console.log(data);
         });
