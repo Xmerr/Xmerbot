@@ -10,11 +10,27 @@ function getDirectories (srcpath) {
 
 module.exports = () => {
     var directories = getDirectories(path.resolve(__dirname, '../files'));
-    var users = [];
+    var users = {
+        name: "users",
+        entries: []
+    };
 
     for(var i = 0; i <= directories.length - 1; i++) {
-        users.push(directories[i]);
+        users.entries.push({
+            value: directories[i],
+            synonyms: [
+                directories[i],
+                directories[i] + "'s"
+            ]
+        });
     }
     
-    jsonfile.writeFile('./users.json', users);
+    jsonfile.writeFile('./users.json', users, (err) => {
+        if(err) {
+            console.log(err);
+        }
+        else{
+            console.log('worked???');
+        }
+    });
 };
