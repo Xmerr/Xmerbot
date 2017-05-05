@@ -1,12 +1,9 @@
 const users = require('./users.js');
 const tokens = require('../tokens.json');
+const request = require('request');
 
-const http = require('http');
 const options = {
-    host: 'api.api.ai',
-    port: 443,
-    path: '/v1/entities?v=20150910',
-    method: 'PUT',
+    url: "https://api.api.ai/v1/entities?v=20150910",
     headers: {
         Authorization: "Bearer " + tokens.apiai,
         'Content-Type': 'application/json'
@@ -21,11 +18,14 @@ module.exports = () => {
     console.log('sending users...');
     console.log(entities);
     
-    var req = http.request(options, res => {
-        res.on('data', (data) => {
-            console.log(data);
-        });
+    request.put(options, {
+        json: JSON.stringify(entities)
+    }, (err, response, body) => {
+       if(err){
+           console.log(err);
+       } 
+       else {
+           console.log(body);
+       }
     });
-    req.write(JSON.stringify(entities));
-    req.end();
 };

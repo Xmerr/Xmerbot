@@ -21,6 +21,7 @@
     "discord.io": "^2.5.1",
     "googleapis": "^19.0.0",
     "jsonfile": "^3.0.0",
-    "node-wit": "^4.2.0"
+    "node-wit": "^4.2.0",
+    "request": "^2.81.0"
   }
 }
