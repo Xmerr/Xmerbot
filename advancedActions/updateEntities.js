@@ -21,9 +21,10 @@ module.exports = () => {
     console.log('sending users...');
     console.log(entities);
     
-    var req = https.request(options, (res, err) => {
-        console.log(res);
-        console.log(err);
+    var req = https.request(options, res => {
+        res.on('data', (data) => {
+            console.log(data);
+        });
     });
     req.write(JSON.stringify(entities));
     req.end();
