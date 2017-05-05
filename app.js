@@ -50,11 +50,11 @@ module.exports = (input, output, user) => {
     });
     
     request.on('response', (data) => {
-        // output(data);
+         output(data);
     });
     
     request.on('error', (err) => {
-        // console.log(err);
+         console.log(err);
     });
     
     request.end();

@@ -1,7 +1,7 @@
 const users = require('./users.js');
 const tokens = require('../tokens.json');
-
 const https = require('https');
+
 var options = {
     hostname: 'api.api.ai',
     port: 443,
@@ -25,9 +25,7 @@ module.exports = () => {
     options.headers['Content-Length'] = strEntities.length; 
     
     var req = https.request(options, res => {
-        res.on('data', (data) => {
-            console.log(data);
-        });
+        res.on('data', data => { });
     });
     req.write(strEntities);
     req.end();
