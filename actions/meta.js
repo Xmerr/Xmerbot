@@ -15,7 +15,7 @@ const dActions = {
 
 module.exports.dActions = dActions;
 
-module.exports.action = (output, data, user) => {
+module.exports.action = (output, user, data) => {
     var message = "Invalid Command(s)";
     
     switch(data.d) {

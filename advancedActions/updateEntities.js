@@ -18,9 +18,6 @@ module.exports = () => {
     var entities = [];
     entities.push(users());
     
-    console.log('sending users...');
-    console.log(entities);
-    
     var strEntities = JSON.stringify(entities);
     options.headers['Content-Length'] = strEntities.length; 
     

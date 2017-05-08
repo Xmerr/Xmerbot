@@ -1,20 +1,43 @@
 const fs = require('fs');
+const request = require('request');
 const path = require('path');
-const util = require('util');
 
-module.exports = (output, data, user) => {
-    output(util.format("Saving this for you %s...", user));
+module.exports = (output, user, data) => {
     
-    var dir = "files/" + user;
+    var dir = path.resolve(__dirname, "../files/" + user);
+    var filePath = path.resolve(dir, data.fileName);
+    
     if (!fs.existsSync(dir)){
         fs.mkdirSync(dir);
     }
     
-    /*fs.writeFile(dir + "/" + data.n, data.m, function(err) {
-        if(err) {
-            return console.log(err);
+    fs.readdir(dir, (err, items) => {
+        if(err){
+            console.log(err);
         }
+        
+        for(var i = items.length - 1; i >= 0; i--) {
+            if(items[i].split('.')[0] === data.fileName) {
+                console.log("WARNING, FILE ALREADY HERE");
+                break;
+            }
+        }
+    });
     
-        output("The file was saved!");
-    }); */
+    request.head(data.url, (err, res, body) => {
+        if(err) {
+            console.log(err);
+        }
+        
+        var fileType = res.headers['content-type'];
+        fileType = fileType.split('/')[1];
+        
+        if(fileType.indexOf(';') !== -1) {
+            fileType = fileType.substr(0, fileType.indexOf(';'));
+        }
+        
+        request(data.url).pipe(fs.createWriteStream(filePath + "." + fileType)).on('close', () => {
+           output("Successfully saved that file");
+        });
+    });
 };

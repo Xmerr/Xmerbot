@@ -1,12 +1,11 @@
 "use strict";
+//https://discordapp.com/oauth2/authorize?&client_id=310822450684493825&scope=bot&permissions=0
 
-const Wit = require('node-wit').Wit;
 const apiai = require('apiai');
 const tokens = require('./tokens.json');
 
 const meta = require('./actions/meta');
 const save = require('./actions/save');
-const greet = require('./actions/greet');
 const updateEntities = require('./advancedActions/updateEntities');
 
 //const client = new Wit({'accessToken': 'ZK5WKHCJGFVEYA6XKJ523BCRXGDM5HNC'});
@@ -26,10 +25,6 @@ const actions = {
     META: {
         key: "meta",
         method: meta
-    },
-    GREET: {
-        key: "greet",
-        method: greet
     }
 };
     
@@ -50,7 +45,15 @@ module.exports = (input, output, user) => {
     });
     
     request.on('response', (data) => {
-         output(data);
+        output(data.result.fulfillment.speech);
+        
+        if(data.result.action){
+            for(var ac in actions) {
+                if(data.result.action.toUpperCase() === actions[ac].key.toUpperCase()) {
+                    actions[ac].method(output, user, data.result.parameters);
+                }
+            }
+        }
     });
     
     request.on('error', (err) => {
@@ -58,33 +61,4 @@ module.exports = (input, output, user) => {
     });
     
     request.end();
-    
-    /*
-    client.message(input)
-        .then((data) => 
-        {
-            if(!data.entities || data.entities.intent[0].confidence < 0.7) {
-                output("I don't understand...");
-            }
-            else {
-                var found = false;
-                for(var ac in actions) {
-                    if(data.entities.intent[0].value.toUpperCase() === actions[ac].key.toUpperCase()){
-                        output("Found something!");
-                        actions[ac].method(output, data, user);
-                        
-                        found = true;
-                        break;
-                    }
-                }
-                if(!found) {
-                    output("Wait..... What?");
-                }
-            }
-        
-            output("Response: " + JSON.stringify(data));
-        })
-        .catch(console.error);
-        
-        */
 };
