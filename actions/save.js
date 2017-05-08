@@ -30,24 +30,24 @@ module.exports = (output, user, data, newCall) => {
         }
         
         data.override = true;
-    });
-    
-    if(data.override){
-        request.head(data.url, (err, res, body) => {
-            if(err) {
-                console.log(err);
-            }
-            
-            var fileType = res.headers['content-type'];
-            fileType = fileType.split('/')[1];
-            
-            if(fileType.indexOf(';') !== -1) {
-                fileType = fileType.substr(0, fileType.indexOf(';'));
-            }
-            
-            request(data.url).pipe(fs.createWriteStream(filePath + "." + fileType)).on('close', () => {
-               output("Successfully saved that file");
+        
+        if(data.override) {
+            request.head(data.url, (err, res, body) => {
+                if(err) {
+                    console.log(err);
+                }
+                
+                var fileType = res.headers['content-type'];
+                fileType = fileType.split('/')[1];
+                
+                if(fileType.indexOf(';') !== -1) {
+                    fileType = fileType.substr(0, fileType.indexOf(';'));
+                }
+                
+                request(data.url).pipe(fs.createWriteStream(filePath + "." + fileType)).on('close', () => {
+                   output("Successfully saved that file");
+                });
             });
-        });
-    }
+        }
+    });
 };
