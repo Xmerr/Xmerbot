@@ -27,12 +27,13 @@ const actions = {
         method: meta
     }
 };
-    
 
-module.exports = (input, output, user) => {
+function application (input, output, user) {
     if(input.toUpperCase().indexOf("XMERBOT") === -1) {
         return;
     }
+    
+    input = input.replace('xmerbot', '').replace('  ', ' ');
     
     updateEntities();
     
@@ -50,7 +51,7 @@ module.exports = (input, output, user) => {
         if(data.result.action){
             for(var ac in actions) {
                 if(data.result.action.toUpperCase() === actions[ac].key.toUpperCase()) {
-                    actions[ac].method(output, user, data.result.parameters);
+                    actions[ac].method(output, user, data.result.parameters, application);
                 }
             }
         }
@@ -61,4 +62,7 @@ module.exports = (input, output, user) => {
     });
     
     request.end();
-};
+}
+
+
+module.exports = application;
