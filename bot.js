@@ -1,8 +1,11 @@
+//Used for running as a discord bot
+
 "use strict";
 
-var Discord = require('discord.io');
-var app = require('./app.js');
-var tokens = require('./tokens.json');
+const Discord = require('discord.io');
+const app = require('./app.js');
+const tokens = require('./tokens.json');
+const fs = require('fs');
  
 var disc = new Discord.Client({
     token: tokens.discord,
@@ -11,6 +14,7 @@ var disc = new Discord.Client({
  
 disc.on('ready', function() {
     console.log('Logged in as %s - %s\n', disc.username, disc.id);
+    fs.writeFile('clientData.json', JSON.stringify(disc), 'utf8');
 });
  
 disc.on('message', function(user, userID, channelID, message) {

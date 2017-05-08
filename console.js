@@ -1,3 +1,5 @@
+//Used for running as a console app
+
 "use strict";
 
 const readline = require("readline");

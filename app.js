@@ -10,6 +10,9 @@ const queryUsers = require('./actions/queryUsers');
 
 const updateEntities = require('./advancedActions/updateEntities');
 
+const fs = require('fs');
+const path = require('path');
+
 //const client = new Wit({'accessToken': 'ZK5WKHCJGFVEYA6XKJ523BCRXGDM5HNC'});
 const client = apiai(tokens.apiai);
  
@@ -35,6 +38,15 @@ const actions = {
 };
 
 function application (input, output, user) {
+    if(!user){
+        user = "Master";
+    }
+    
+    var dir = path.resolve(__dirname, "./files/" + user);
+    if (!fs.existsSync(dir)){
+        fs.mkdirSync(dir);
+    }
+    
     if(input.toUpperCase().indexOf("XMERBOT") === -1) {
         return;
     }
@@ -42,10 +54,6 @@ function application (input, output, user) {
     input = input.replace('xmerbot', '').replace('  ', ' ');
     
     updateEntities();
-    
-    if(!user){
-        user = "Master";
-    }
     
     var request = client.textRequest(input, {
        sessionId: user 
@@ -56,7 +64,7 @@ function application (input, output, user) {
             output(data.result.fulfillment.speech);
         }
         
-        if(data.result.action){
+        if(data.result.action) {
             for(var ac in actions) {
                 if(data.result.action.toUpperCase() === actions[ac].key.toUpperCase()) {
                     actions[ac].method(output, user, data.result.parameters, application);
