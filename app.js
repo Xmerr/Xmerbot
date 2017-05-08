@@ -4,27 +4,33 @@
 const apiai = require('apiai');
 const tokens = require('./tokens.json');
 
-const meta = require('./actions/meta');
 const save = require('./actions/save');
+const queryFiles = require('./actions/queryFiles');
+const queryUsers = require('./actions/queryUsers');
+
 const updateEntities = require('./advancedActions/updateEntities');
 
 //const client = new Wit({'accessToken': 'ZK5WKHCJGFVEYA6XKJ523BCRXGDM5HNC'});
 const client = apiai(tokens.apiai);
  
 const actions = {
-    SAVE: {
+    Save: {
         key: "saveFile",
         method: save
     },
-    LOAD: {
+    Load: {
         key: "load",
         method: () => {
             console.log("Worked");   
         }
     },
-    META: {
-        key: "meta",
-        method: meta
+    QueryFiles: {
+        key: "displayFiles",
+        method: queryFiles 
+    },
+    QueryUsers: {
+        key: "displayUsers",
+        method: queryUsers
     }
 };
 
@@ -46,7 +52,9 @@ function application (input, output, user) {
     });
     
     request.on('response', (data) => {
-        output(data.result.fulfillment.speech);
+        if(data.result.fulfillment.speech && data.result.fulfillment.speech.length >= 1) {
+            output(data.result.fulfillment.speech);
+        }
         
         if(data.result.action){
             for(var ac in actions) {

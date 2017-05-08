@@ -3,7 +3,6 @@ const request = require('request');
 const path = require('path');
 
 module.exports = (output, user, data, newCall) => {
-    
     var dir = path.resolve(__dirname, "../files/" + user);
     var filePath = path.resolve(dir, data.fileName);
     
