@@ -19,4 +19,4 @@ rl.on('line', (message) => {
     });
 });
 
-console.log('Running Test');
+console.log('Running Xmerbot console');
