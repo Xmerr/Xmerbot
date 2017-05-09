@@ -51,12 +51,12 @@ module.exports = (output, user, data, newCall) => {
                             fs.unlinkSync(`${filePath}.${fileType}`);
                         };
                         
-                        if(fileType.indexOf('gif') !== -1) {
+                        if(fileType.indexOf('.gif') !== -1) {
                             webp.gwebp(`${filePath}.${fileType}`, `${filePath}.webp`, "-q 80", (status) => {
                                 removeTmpFile();
                             });
                         }
-                        else if (fileType.indexOf('html') !== -1) {
+                        else if (fileType.indexOf('.html') !== -1) {
                             output("That isn't an image, but I'll save it for you...");
                         }
                         else {
