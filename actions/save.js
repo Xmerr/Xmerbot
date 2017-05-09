@@ -2,6 +2,8 @@ const fs = require('fs');
 const request = require('request');
 const path = require('path');
 
+var webp = require('webp-converter');
+
 module.exports = (output, user, data, newCall) => {
     var dir = path.resolve(__dirname, "../files/" + user);
     var filePath = path.resolve(dir, data.fileName);
@@ -43,8 +45,33 @@ module.exports = (output, user, data, newCall) => {
                     fileType = fileType.substr(0, fileType.indexOf(';'));
                 }
                 
-                request(data.url).pipe(fs.createWriteStream(filePath + "." + fileType)).on('close', () => {
-                   output("Successfully saved that file");
+                request(data.url).pipe(fs.createWriteStream(`${filePath}.${fileType}`))
+                    .on('close', () => {
+                        var removeTmpFile = () => {
+                            fs.unlinkSync(`${filePath}.${fileType}`);
+                        };
+                        
+                        if(fileType.indexOf('gif') !== -1) {
+                            webp.gwebp(`${filePath}.${fileType}`, `${filePath}.webp`, "-q 80", (status) => {
+                                if(status === 100) {
+                                    removeTmpFile();
+                                }
+                                else{
+                                    console.log('error');
+                                }
+                            });
+                        }
+                        else {
+                            webp.cwebp(`${filePath}.${fileType}`, `${filePath}.webp`, "-q 80", (status) => {
+                                if(status === 100) {
+                                    removeTmpFile();
+                                }
+                                else{
+                                    console.log('error');
+                                }
+                            });
+                        }
+                       output("Successfully saved that file");
                 });
             });
         }

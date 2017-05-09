@@ -5,8 +5,8 @@ module.export = (() => {
         app = express();
 
     app.use(express.static(path.join(__dirname + '/../files'),{
-        index:false,
-        extensions:['html']
+        index: false,
+        extensions: ['webp']
     }));
     app.listen(process.env.port);
 })();
