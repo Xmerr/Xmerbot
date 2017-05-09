@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = (output, user, data, newCall) => {
-    
     if(!data.user) {
         data.user = user;
     }    
@@ -14,7 +13,6 @@ module.exports = (output, user, data, newCall) => {
         return;
     }
     
-    
     fs.readdir(dir, (err, items) => {
         if(err){
             console.log(err);
@@ -22,16 +20,19 @@ module.exports = (output, user, data, newCall) => {
         
         for(var i = items.length - 1; i >= 0; i--) {
             if(items[i].split('.')[0] === data.fileName) {
+                
+                var url = process.env.url + data.user + "/" + items[i].split('.')[0];
+                
                 if(global.disc) {
                     global.disc.uploadFile({
                         to: data.channelID,
                         file: dir + "/" + items[i],
-                        message: "http://www.xmer.pw/" + data.user + "/" + items[i]
+                        message: `Here it is: ${url}`
                     });
                     return;
                 }
                 
-                output('Document found, but I\'m not connected to a discord channel');
+                output(`Here it is: ${url}`);
                 return;
             }
         }

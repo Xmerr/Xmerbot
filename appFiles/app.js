@@ -42,7 +42,7 @@ process.env.url = (() => {
         url += ":80";
     }
     
-    return url;
+    return url + "/";
 })();
 
 require('./httpServer');
