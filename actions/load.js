@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = (output, user, data, newCall) => {
+    
     if(!data.user) {
         data.user = user;
     }    
@@ -25,12 +26,13 @@ module.exports = (output, user, data, newCall) => {
                     global.disc.uploadFile({
                         to: data.channelID,
                         file: dir + "/" + items[i],
-                        message: "Here you go"
+                        message: "http://www.xmer.pw/" + data.user + "/" + items[i]
                     });
                     return;
                 }
                 
                 output('Document found, but I\'m not connected to a discord channel');
+                return;
             }
         }
         

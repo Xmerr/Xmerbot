@@ -2,8 +2,10 @@
 
 "use strict";
 
+process.env = require('./appFiles/process.env.json');
+
 const readline = require("readline");
-const app = require('./app.js');
+const app = require('./appFiles/app.js');
 
 const rl = readline.createInterface({
     input: process.stdin,

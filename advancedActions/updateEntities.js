@@ -1,5 +1,4 @@
 const users = require('./users.js');
-const tokens = require('../tokens.json');
 const https = require('https');
 
 var options = {
@@ -8,7 +7,7 @@ var options = {
     path: '/v1/entities?v=20150910',
     method: 'PUT',
     headers: {
-        Authorization: "Bearer " + tokens.apiai,
+        Authorization: "Bearer " + process.env.apiai,
         'Content-Type': 'application/json'
     }
 };

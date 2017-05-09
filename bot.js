@@ -2,13 +2,14 @@
 
 "use strict";
 
+process.env = require('./appFiles/process.env.json');
+
 const Discord = require('discord.io');
-const app = require('./app.js');
-const tokens = require('./tokens.json');
+const app = require('./appFiles/app.js');
 const fs = require('fs');
  
 var disc = new Discord.Client({
-    token: tokens.discord,
+    token: process.env.discord,
     autorun: true
 });
  
