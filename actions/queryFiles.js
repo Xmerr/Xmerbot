@@ -25,9 +25,12 @@ module.exports = (output, user, data, newCall) => {
             return;
         }
         
-        output(`${data.user} has the following files: `);
+        var string = `${data.user} has the following files: \n`;
+        
         for(var i = items.length - 1; i >= 0; i--) {
-            output(items[i]);
+            string += `${items[i]}\n`;
         }
+        
+        output(string);
     });
 };

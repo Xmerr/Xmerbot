@@ -5,6 +5,7 @@ const apiai = require('apiai');
 const tokens = require('./tokens.json');
 
 const save = require('./actions/save');
+const load = require('./actions/load');
 const queryFiles = require('./actions/queryFiles');
 const queryUsers = require('./actions/queryUsers');
 
@@ -22,10 +23,8 @@ const actions = {
         method: save
     },
     Load: {
-        key: "load",
-        method: () => {
-            console.log("Worked");   
-        }
+        key: "loadFile",
+        method: load
     },
     QueryFiles: {
         key: "displayFiles",
@@ -37,7 +36,7 @@ const actions = {
     }
 };
 
-function application (input, output, user) {
+function application (input, output, user, userID, channelID) {
     if(!user){
         user = "Master";
     }
@@ -67,7 +66,12 @@ function application (input, output, user) {
         if(data.result.action) {
             for(var ac in actions) {
                 if(data.result.action.toUpperCase() === actions[ac].key.toUpperCase()) {
-                    actions[ac].method(output, user, data.result.parameters, application);
+                    actions[ac].method(
+                        output,
+                        user,
+                        Object.assign(data.result.parameters, {userID, channelID}),
+                        application
+                    );
                 }
             }
         }

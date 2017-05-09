@@ -13,8 +13,10 @@ module.exports = (output, user, data, newCall) => {
     
     var users = getDirectories(path.resolve(__dirname, '../files/'));
     
-    output("The following users have used this bot: ");
+    var string = `The following users have used this bot: \n`;
     for(var i = 0; i < users.length; i++) {
-        output(users[i]);
+        string += `${users[i]} \n`;
     }
+    
+    output(string);
 };

@@ -23,5 +23,7 @@ disc.on('message', function(user, userID, channelID, message) {
             to: channelID,
             message: msg 
         });
-    }, user);
+    }, user, userID, channelID);
 });
+
+global.disc = disc;
