@@ -8,5 +8,13 @@ module.export = (() => {
         index: false,
         extensions: ['webp', 'html']
     }));
-    app.listen(process.env.port);
+    
+    app.listen(process.env.port, 'xmer.pw', (err) => {
+        if(err){
+            console.log(err);
+        }
+        else {
+            console.log('we\'re online');
+        }
+    });
 })();
