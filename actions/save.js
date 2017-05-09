@@ -56,11 +56,15 @@ module.exports = (output, user, data, newCall) => {
                                 removeTmpFile();
                             });
                         }
+                        else if (fileType.indexOf('html') !== -1) {
+                            output("That isn't an image, but I'll save it for you...");
+                        }
                         else {
                             webp.cwebp(`${filePath}.${fileType}`, `${filePath}.webp`, "-q 80", (status) => {
                                 removeTmpFile();
                             });
                         }
+                        
                        output("Successfully saved that file");
                 });
             });
