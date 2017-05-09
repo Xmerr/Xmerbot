@@ -20,17 +20,7 @@ module.exports = (output, user, data, newCall) => {
         
         for(var i = items.length - 1; i >= 0; i--) {
             if(items[i].split('.')[0].toUpperCase() === data.fileName.toUpperCase()) {
-                
                 var url = process.env.url + data.user + "/" + items[i].split('.')[0];
-                
-                if(global.disc) {
-                    global.disc.uploadFile({
-                        to: data.channelID,
-                        file: dir + "/" + items[i],
-                        message: `Here it is: ${url}`
-                    });
-                    return;
-                }
                 
                 output(`Here it is: ${url}`);
                 return;
