@@ -53,22 +53,12 @@ module.exports = (output, user, data, newCall) => {
                         
                         if(fileType.indexOf('gif') !== -1) {
                             webp.gwebp(`${filePath}.${fileType}`, `${filePath}.webp`, "-q 80", (status) => {
-                                if(status === 100) {
-                                    removeTmpFile();
-                                }
-                                else{
-                                    console.log('error');
-                                }
+                                removeTmpFile();
                             });
                         }
                         else {
                             webp.cwebp(`${filePath}.${fileType}`, `${filePath}.webp`, "-q 80", (status) => {
-                                if(status === 100) {
-                                    removeTmpFile();
-                                }
-                                else{
-                                    console.log('error');
-                                }
+                                removeTmpFile();
                             });
                         }
                        output("Successfully saved that file");
