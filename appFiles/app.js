@@ -52,7 +52,7 @@ function application (input, output, user, userID, channelID) {
         user = "Master";
     }
     
-    var dir = path.resolve(__dirname, "./files/" + user);
+    var dir = path.resolve(__dirname, "../files/" + user);
     if (!fs.existsSync(dir)){
         fs.mkdirSync(dir);
     }
