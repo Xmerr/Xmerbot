@@ -38,3 +38,6 @@ jspm_packages
 
 **/process.env.json
 **/files/**
+**/appFiles/mongo
+clientData.json
+quickCommand.js

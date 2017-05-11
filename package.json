@@ -21,6 +21,7 @@
     "discord.io": "^2.5.1",
     "express": "^4.15.2",
     "googleapis": "^19.0.0",
+    "mongoose": "^4.9.8",
     "request": "^2.81.0",
     "webp-converter": "^2.1.6"
   }
