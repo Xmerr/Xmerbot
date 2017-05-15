@@ -1,5 +1,4 @@
 "use strict";
-//https://discordapp.com/oauth2/authorize?&client_id=310822450684493825&scope=bot&permissions=0
 
 const apiai = require('apiai');
 
@@ -15,7 +14,6 @@ require('./databaseConnection');
 const fs = require('fs');
 const path = require('path');
 
-//const client = new Wit({'accessToken': 'ZK5WKHCJGFVEYA6XKJ523BCRXGDM5HNC'});
 const client = apiai(process.env.apiai);
  
 const actions = {
@@ -44,7 +42,7 @@ process.env.url = (() => {
         url += ":80";
     }
     
-    return url + "/";
+    return url + "/dndImages/";
 })();
 
 require('./httpServer');
