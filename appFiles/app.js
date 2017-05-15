@@ -42,7 +42,7 @@ process.env.url = (() => {
         url += ":80";
     }
     
-    return url + "/dndImages/";
+    return url + process.env.dndImageLocation;
 })();
 
 require('../site/httpServer');
