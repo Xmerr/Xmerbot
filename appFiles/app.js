@@ -61,7 +61,7 @@ function application (input, output, user, userID, channelID) {
         return;
     }
     
-    input = input.replace('xmerbot', '').replace('  ', ' ');
+    input = input.replace('xmerbot', '').replace('  ', ' ').trim();
     
     updateEntities();
     
