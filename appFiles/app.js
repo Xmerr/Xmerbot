@@ -45,7 +45,7 @@ process.env.url = (() => {
     return url + "/dndImages/";
 })();
 
-require('./httpServer');
+require('../site/httpServer');
 
 function application (input, output, user, userID, channelID) {
     if(!user){
