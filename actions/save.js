@@ -2,8 +2,6 @@ const fs = require('fs');
 const request = require('request');
 const path = require('path');
 
-var webp = require('webp-converter');
-
 module.exports = (output, user, data, newCall) => {
     var dir = path.resolve(__dirname, "../files/" + user);
     var filePath = path.resolve(dir, data.fileName);
@@ -47,22 +45,8 @@ module.exports = (output, user, data, newCall) => {
                 
                 request(data.url).pipe(fs.createWriteStream(`${filePath}.${fileType}`))
                     .on('close', () => {
-                        var removeTmpFile = () => {
-                            fs.unlinkSync(`${filePath}.${fileType}`);
-                        };
-                        
-                        if(fileType.indexOf('gif') !== -1) {
-                            webp.gwebp(`${filePath}.${fileType}`, `${filePath}.webp`, "-q 80", (status) => {
-                                removeTmpFile();
-                            });
-                        }
-                        else if (fileType.indexOf('html') !== -1) {
+                        if (fileType.indexOf('html') !== -1) {
                             output("That isn't an image, but I'll save it for you...");
-                        }
-                        else {
-                            webp.cwebp(`${filePath}.${fileType}`, `${filePath}.webp`, "-q 80", (status) => {
-                                removeTmpFile();
-                            });
                         }
                         
                        output("Successfully saved that file");

@@ -45,8 +45,6 @@ process.env.url = (() => {
     return url + process.env.dndImageLocation;
 })();
 
-require('../site/httpServer');
-
 function application (input, output, user, userID, channelID) {
     if(!user){
         user = "Master";
