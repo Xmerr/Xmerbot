@@ -19,7 +19,6 @@
   "dependencies": {
     "apiai": "^4.0.2",
     "discord.io": "^2.5.1",
-    "express": "^4.15.2",
     "googleapis": "^19.0.0",
     "mongoose": "^4.9.8",
     "request": "^2.81.0"

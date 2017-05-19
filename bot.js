@@ -2,7 +2,7 @@
 
 "use strict";
 
-process.env = require('./appFiles/process.env.json');
+process.env = require('../process.env.json');
 
 const Discord = require('discord.io');
 const app = require('./appFiles/app.js');
