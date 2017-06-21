@@ -9,7 +9,7 @@ const queryUsers = require('../actions/queryUsers');
 
 const updateEntities = require('../advancedActions/updateEntities');
 
-require('./databaseConnection');
+require('./databaseFiles/databaseConnection');
 
 const fs = require('fs');
 const path = require('path');
